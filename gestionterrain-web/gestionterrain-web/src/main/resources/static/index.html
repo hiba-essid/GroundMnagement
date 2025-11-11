@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Terrains de Sport</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>🏟️ Système de Gestion de Terrains de Sport</h1>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+        <div class="container">
+            <button class="tab-btn active" onclick="showTab('terrains')">
+                <span class="tab-icon">🏟️</span> Terrains
+            </button>
+            <button class="tab-btn" onclick="showTab('clients')">
+                <span class="tab-icon">👥</span> Clients
+            </button>
+            <button class="tab-btn" onclick="showTab('reservations')">
+                <span class="tab-icon">📅</span> Réservations
+            </button>
+            <button class="tab-btn" onclick="showTab('paiements')">
+                <span class="tab-icon">💰</span> Paiements
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Terrains Tab -->
+            <div id="terrains-tab" class="tab-content active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Gestion des Terrains</h2>
+                        <button class="btn btn-primary" onclick="showTerrainForm()">+ Ajouter un terrain</button>
+                    </div>
+                    <div class="card-body">
+                        <table id="terrains-table" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Type</th>
+                                    <th>Tarif/Heure</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clients Tab -->
+            <div id="clients-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Gestion des Clients</h2>
+                        <button class="btn btn-primary" onclick="showClientForm()">+ Ajouter un client</button>
+                    </div>
+                    <div class="card-body">
+                        <table id="clients-table" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Email</th>
+                                    <th>Téléphone</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reservations Tab -->
+            <div id="reservations-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Gestion des Réservations</h2>
+                        <button class="btn btn-primary" onclick="showReservationForm()">+ Nouvelle réservation</button>
+                    </div>
+                    <div class="card-body">
+                        <table id="reservations-table" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Terrain</th>
+                                    <th>Client</th>
+                                    <th>Date Début</th>
+                                    <th>Date Fin</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paiements Tab -->
+            <div id="paiements-tab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Gestion des Paiements</h2>
+                        <button class="btn btn-primary" onclick="showPaiementForm()">+ Ajouter un paiement</button>
+                    </div>
+                    <div class="card-body">
+                        <table id="paiements-table" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Réservation</th>
+                                    <th>Montant</th>
+                                    <th>Mode</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal pour les formulaires -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 - Système de Gestion de Terrains de Sport</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

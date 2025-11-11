@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="GestionTerrainPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <class>com.gestionterrain.entity.Terrain</class>
+        <class>com.gestionterrain.entity.Client</class>
+        <class>com.gestionterrain.entity.Reservation</class>
+        <class>com.gestionterrain.entity.Paiement</class>
+        
+        <properties>
+            <!-- Driver MySQL -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+
+            <!-- ✅ URL de connexion corrigée -->
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://localhost:3306/gestionterrain?serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;createDatabaseIfNotExist=true"/>
+
+            <!-- Identifiants MySQL -->
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+
+            <!-- Configuration Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+
+            <!-- Configuration de la connection pool -->
+            <property name="hibernate.connection.pool_size" value="10"/>
+            <property name="hibernate.connection.autocommit" value="false"/>
+
+            <!-- Gestion des transactions -->
+            <property name="hibernate.transaction.coordinator_class" value="jdbc"/>
+        </properties>
+    </persistence-unit>
+</persistence>
