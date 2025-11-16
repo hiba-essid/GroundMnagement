@@ -1,7 +1,30 @@
 @echo off
+cd /d "%~dp0"
 echo ============================================
 echo   GESTION TERRAIN - SCRIPT DE DEMARRAGE
 echo ============================================
+echo.
+
+REM Verifier Maven
+where mvn >nul 2>&1
+if %errorlevel% neq 0 (
+    echo ERREUR: Maven n'est pas installe ou pas dans le PATH
+    echo.
+    echo Veuillez installer Maven: https://maven.apache.org/download.cgi
+    pause
+    exit /b 1
+)
+
+REM Se placer dans le module web
+if not exist "gestionterrain-web\gestionterrain-web\pom.xml" (
+    echo ERREUR: Fichier pom.xml introuvable
+    echo Assurez-vous d'executer ce script depuis la racine du projet
+    pause
+    exit /b 1
+)
+
+cd gestionterrain-web\gestionterrain-web
+echo Repertoire de travail: %CD%
 echo.
 
 :menu
@@ -29,7 +52,7 @@ goto menu
 :compile
 echo.
 echo [COMPILATION EN COURS...]
-mvn compile
+call mvn compile
 if %errorlevel% neq 0 (
     echo ERREUR: La compilation a echoue
 ) else (
@@ -41,7 +64,7 @@ goto menu
 :test
 echo.
 echo [EXECUTION DES TESTS...]
-mvn test
+call mvn test
 if %errorlevel% neq 0 (
     echo ERREUR: Les tests ont echoue
 ) else (
@@ -53,14 +76,29 @@ goto menu
 :run
 echo.
 echo [LANCEMENT DE L'APPLICATION...]
-mvn exec:java
+echo Compilation et creation du JAR...
+call mvn clean package -DskipTests -q
+if %errorlevel% neq 0 (
+    echo ERREUR: La compilation a echoue
+    pause
+    goto menu
+)
+echo.
+echo Lancement de l'application sur le port 8081...
+echo Appuyez sur Ctrl+C pour arreter l'application
+echo.
+start cmd /k "java -jar target\gestion-terrain-web-1.0-SNAPSHOT.jar"
+timeout /t 3 >nul
+echo.
+echo Application lancee dans une nouvelle fenetre
+echo Acces: http://localhost:8081
 pause
 goto menu
 
 :clean
 echo.
 echo [NETTOYAGE DU PROJET...]
-mvn clean
+call mvn clean
 echo SUCCES: Projet nettoye
 pause
 goto menu
@@ -68,11 +106,13 @@ goto menu
 :package
 echo.
 echo [CREATION DU JAR...]
-mvn package
+call mvn package -DskipTests
 if %errorlevel% neq 0 (
     echo ERREUR: Package a echoue
 ) else (
-    echo SUCCES: JAR cree dans target/
+    echo SUCCES: JAR cree dans target\gestion-terrain-web-1.0-SNAPSHOT.jar
+    echo.
+    echo Pour lancer: java -jar target\gestion-terrain-web-1.0-SNAPSHOT.jar
 )
 pause
 goto menu
@@ -80,7 +120,7 @@ goto menu
 :all
 echo.
 echo [CLEAN + COMPILE + TEST...]
-mvn clean compile test
+call mvn clean compile test
 if %errorlevel% neq 0 (
     echo ERREUR: Processus a echoue
 ) else (
