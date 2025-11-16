@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "reservations")
-@JsonIgnoreProperties({"paiement"})
+@JsonIgnoreProperties({"paiements"})
 public class Reservation {
     
     @Id
@@ -22,20 +24,20 @@ public class Reservation {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
     
-    @Column(nullable = false)
+    @Column(name = "date_debut", nullable = false)
     private LocalDateTime dateDebut;
     
-    @Column(nullable = false)
+    @Column(name = "date_fin", nullable = false)
     private LocalDateTime dateFin;
     
-    @Column(nullable = false)
+    @Column(name = "montant_total", nullable = false)
     private Double montantTotal;
     
     @Column(nullable = false)
     private String statut; // Confirmée, En attente, Annulée
     
-    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
-    private Paiement paiement;
+    @OneToMany(mappedBy = "reservation")
+    private List<Paiement> paiements = new ArrayList<>();
     
     // Constructeurs
     public Reservation() {}
@@ -107,11 +109,11 @@ public class Reservation {
         this.statut = statut;
     }
     
-    public Paiement getPaiement() {
-        return paiement;
+    public List<Paiement> getPaiements() {
+        return paiements;
     }
     
-    public void setPaiement(Paiement paiement) {
-        this.paiement = paiement;
+    public void setPaiements(List<Paiement> paiements) {
+        this.paiements = paiements;
     }
 }

@@ -7,24 +7,24 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "paiements")
-@JsonIgnoreProperties({"reservation"})
 public class Paiement {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "reservation_id", nullable = false)
+    @JsonIgnoreProperties({"paiements", "client", "terrain"})
     private Reservation reservation;
     
     @Column(nullable = false)
     private Double montant;
     
-    @Column(nullable = false)
+    @Column(name = "mode_paiement", nullable = false)
     private String modePaiement; // Espèces, Carte bancaire, Virement
     
-    @Column(nullable = false)
+    @Column(name = "date_paiement", nullable = false)
     private LocalDateTime datePaiement;
     
     @Column(nullable = false)

@@ -376,8 +376,8 @@ function saveReservation(event, id) {
     const formData = new FormData(event.target);
     
     const reservation = {
-        terrain: { id: parseInt(formData.get('terrainId')) },
-        client: { id: parseInt(formData.get('clientId')) },
+        clientId: parseInt(formData.get('clientId')),
+        terrainId: parseInt(formData.get('terrainId')),
         dateDebut: formData.get('dateDebut'),
         dateFin: formData.get('dateFin'),
         montantTotal: parseFloat(formData.get('montantTotal')),
@@ -512,10 +512,9 @@ function savePaiement(event, id) {
     const formData = new FormData(event.target);
     
     const paiement = {
-        reservation: { id: parseInt(formData.get('reservationId')) },
+        reservationId: parseInt(formData.get('reservationId')),
         montant: parseFloat(formData.get('montant')),
         modePaiement: formData.get('modePaiement'),
-        datePaiement: new Date().toISOString(),
         statut: formData.get('statut'),
         reference: formData.get('reference')
     };

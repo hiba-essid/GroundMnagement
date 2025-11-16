@@ -21,7 +21,7 @@ public class Terrain {
     @Column(nullable = false)
     private String type; // Football, Basketball, Tennis, etc.
     
-    @Column(nullable = false)
+    @Column(name = "tarif_heure", nullable = false)
     private Double tarifHeure;
     
     @Column(nullable = false)

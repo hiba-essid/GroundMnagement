@@ -30,20 +30,53 @@ public class PaiementController {
     }
     
     @PostMapping
-    public ResponseEntity<String> createPaiement(@RequestBody Paiement paiement) {
+    public ResponseEntity<String> createPaiement(@RequestBody PaiementRequest request) {
         try {
-            paiementService.save(paiement);
+            System.out.println("=== Création de paiement ===");
+            System.out.println("Reservation ID: " + request.getReservationId());
+            System.out.println("Montant: " + request.getMontant());
+            System.out.println("Mode: " + request.getModePaiement());
+            System.out.println("Date: " + request.getDatePaiement());
+            System.out.println("Statut: " + request.getStatut());
+            System.out.println("Reference: " + request.getReference());
+            
+            Paiement paiement = paiementService.createFromRequest(request);
+            System.out.println("Paiement sauvegardé avec ID: " + paiement.getId());
             return ResponseEntity.ok("Paiement créé avec succès");
         } catch (Exception e) {
+            System.err.println("Erreur lors de la création du paiement:");
+            e.printStackTrace();
             return ResponseEntity.badRequest().body("Erreur: " + e.getMessage());
         }
     }
     
+    // Classe interne pour recevoir les données
+    public static class PaiementRequest {
+        private Long reservationId;
+        private Double montant;
+        private String modePaiement;
+        private String datePaiement;
+        private String statut;
+        private String reference;
+        
+        public Long getReservationId() { return reservationId; }
+        public void setReservationId(Long reservationId) { this.reservationId = reservationId; }
+        public Double getMontant() { return montant; }
+        public void setMontant(Double montant) { this.montant = montant; }
+        public String getModePaiement() { return modePaiement; }
+        public void setModePaiement(String modePaiement) { this.modePaiement = modePaiement; }
+        public String getDatePaiement() { return datePaiement; }
+        public void setDatePaiement(String datePaiement) { this.datePaiement = datePaiement; }
+        public String getStatut() { return statut; }
+        public void setStatut(String statut) { this.statut = statut; }
+        public String getReference() { return reference; }
+        public void setReference(String reference) { this.reference = reference; }
+    }
+    
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatePaiement(@PathVariable Long id, @RequestBody Paiement paiement) {
+    public ResponseEntity<String> updatePaiement(@PathVariable Long id, @RequestBody PaiementRequest request) {
         try {
-            paiement.setId(id);
-            paiementService.update(paiement);
+            paiementService.updateFromRequest(id, request);
             return ResponseEntity.ok("Paiement modifié avec succès");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erreur: " + e.getMessage());
