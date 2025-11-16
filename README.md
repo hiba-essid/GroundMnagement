@@ -37,8 +37,8 @@ Application web de gestion de terrains de sport développée avec Spring Boot et
 
 ### 1. Cloner le dépôt
 ```bash
-git clone <votre-repo-url>
-cd gestion-terrain
+git clone https://github.com/hiba-essid/GroundMnagement.git
+cd GroundMnagement
 ```
 
 ### 2. Créer la base de données
@@ -77,7 +77,7 @@ Ouvrez votre navigateur sur : **http://localhost:8081**
 ## 📁 Structure du Projet
 
 ```
-gestion-terrain/
+GroundMnagement/
 ├── gestionterrain-web/          # Module web Spring Boot
 │   └── gestionterrain-web/
 │       ├── src/
@@ -168,9 +168,10 @@ gestion-terrain/
 
 ## 👥 Auteurs
 
-Développé avec ❤️ pour la gestion de terrains de sport
+Projet **GroundMnagement** - Système de Gestion de Terrains de Sport
+
+Dépôt GitHub : [hiba-essid/GroundMnagement](https://github.com/hiba-essid/GroundMnagement)
 
 ## 📄 Licence
 
 Ce projet est sous licence MIT.
-"# GroundMnagement" 
